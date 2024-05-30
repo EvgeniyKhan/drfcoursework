@@ -6,9 +6,9 @@ from users.models import User
 
 class Habit(models.Model):
     PERIODICITY_CHOICES = (
-        (1, 'Every Day'),
-        (2, 'Every Week'),
-        (3, 'Every Month'),
+        (1, "Every Day"),
+        (2, "Every Week"),
+        (3, "Every Month"),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Создатель")
     place = models.CharField(max_length=200, verbose_name="Место")
@@ -21,15 +21,16 @@ class Habit(models.Model):
         "Habit",
         on_delete=models.SET_NULL,
         verbose_name="Связанная привычка",
-        **NULLABLE)
-    periodicity = models.IntegerField(choices=PERIODICITY_CHOICES, verbose_name="Периодичность")
+        **NULLABLE,
+    )
+    periodicity = models.IntegerField(
+        choices=PERIODICITY_CHOICES, verbose_name="Периодичность"
+    )
     reward = models.CharField(max_length=200, verbose_name="Вознаграждение", **NULLABLE)
     time_to_complete = models.PositiveSmallIntegerField(
         default=60, verbose_name="Время на выполнение"
     )
-    is_public = models.BooleanField(
-        default=False, verbose_name="Признак публичности"
-    )
+    is_public = models.BooleanField(default=False, verbose_name="Признак публичности")
 
     def __str__(self):
         return (
